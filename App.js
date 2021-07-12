@@ -8,12 +8,14 @@ import Landing from "./components/auth/landing"
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Main from './components/Main'
+import SaveScreen from './components/main/Save'
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './redux/reducers'
 import thunk from 'redux-thunk';
 import { LogBox } from 'react-native';
+import AddScreen from './components/main/Add'
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -52,6 +54,7 @@ export class App extends Component {
   }
 
   render() {
+
     const Stack = createStackNavigator();
     const {loggedIn, loaded} = this.state
     if(!loaded){
@@ -80,11 +83,12 @@ export class App extends Component {
       <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Landing"
+          initialRouteName="Main"
           >
             <Stack.Screen name="Main" component={Main} options={{headerShown:false}} />
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Add" component={AddScreen}/>
+            <Stack.Screen name="Save" component={SaveScreen}/>
+
           </Stack.Navigator>
       </NavigationContainer>    
       </Provider>
