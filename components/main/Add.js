@@ -74,7 +74,7 @@ export default function Add({navigation}) {
            <Button onPress={()=>pickImage()}
            title="Pick Image"
            /> 
-           <Button onPress={()=>navigation.navigate("Save",{type,image})}
+           <Button onPress={()=>navigation.navigate("Save",{image})}
            title="Save Image"
            /> 
            {image && <Image source={{uri:image}} style={{flex:1}}/>}
