@@ -97,7 +97,10 @@ const Profile = (props) => {
                                 )
                             }
                         </View>
-                        :null
+                        :<Button
+                                title="Sign Out"
+                                onPress={()=>firebase.auth().signOut()}
+                        />
 
                     }
                 </View>

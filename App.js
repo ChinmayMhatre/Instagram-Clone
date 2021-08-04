@@ -16,6 +16,7 @@ import rootReducer from './redux/reducers'
 import thunk from 'redux-thunk';
 import { LogBox } from 'react-native';
 import AddScreen from './components/main/Add'
+import CommentScreen from './components/main/Comments'
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -88,6 +89,7 @@ export class App extends Component {
             <Stack.Screen name="Main" component={Main} />
             <Stack.Screen name="Add" component={AddScreen}/>
             <Stack.Screen name="Save" component={SaveScreen}/>
+            <Stack.Screen name="Comments" component={CommentScreen}/>
 
           </Stack.Navigator>
       </NavigationContainer>    
