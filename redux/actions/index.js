@@ -2,9 +2,6 @@
 import firebase from 'firebase'
 import { USER_STATE_CHANGE, USER_POST_STATE_CHANGE,USER_FOLLOWING,USERS_POST_STATE_CHANGE, USERS_STATE_CHANGE, CLEAR_DATA } from '../constants'
 
-
-
-
 export function clearData(){
     return (
         (dispatch)=>{
@@ -12,7 +9,6 @@ export function clearData(){
         }
     )
 }
-
 
 export function fetchUser(){
     return (
@@ -32,8 +28,6 @@ export function fetchUser(){
     )
 }
 
-
-
 export function fetchUserPosts(){
     return (
         (dispatch) =>{
@@ -49,9 +43,8 @@ export function fetchUserPosts(){
                     const id   = doc.id
                     return {id , ...data}
                 })
-                // console.log(posts);
-                dispatch({type:USER_POST_STATE_CHANGE,posts})
-
+            // console.log(posts);
+            dispatch({type:USER_POST_STATE_CHANGE,posts})
             })
         }
     )
@@ -73,7 +66,7 @@ export function fetchUserFollowing(){
                 dispatch({type:USER_FOLLOWING,following})
                 for (let i=0 ; i<following.length ;i++){
                     // console.log(following)
-                    dispatch(fetchUsersData(following[i]))
+                    dispatch(fetchUsersData(following[i],true))
                 }
             })
             
@@ -82,7 +75,7 @@ export function fetchUserFollowing(){
 }
 
 
-export function fetchUsersData(uid){
+export function fetchUsersData(uid,getposts){
     return (
         (dispatch,getState) =>{
             const found = getState().usersState.users
@@ -98,13 +91,14 @@ export function fetchUsersData(uid){
                         user.uid = uid
                         dispatch({type:USERS_STATE_CHANGE,user})
                         console.log("call hua")
-                        dispatch(fetchUserFollowingPosts(user.uid))
+                        if(getposts){
+                            dispatch(fetchUserFollowingPosts(uid))
+                        }
                     }else{
                         console.log("does not exist");
                     }
-                })
+                })      
             }
-            
         }
     )
 }

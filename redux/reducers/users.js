@@ -2,8 +2,8 @@ import { USERS_STATE_CHANGE, USERS_POST_STATE_CHANGE, CLEAR_DATA} from "../const
 
 const initialState = {
     users: [],
-    userLoaded: 0
-
+    feed:[],
+    userFollowingLoaded: 0
 }
 
 export const Users = (state = initialState,action)=>{    
@@ -16,18 +16,15 @@ export const Users = (state = initialState,action)=>{
         case USERS_POST_STATE_CHANGE:
             return{
                 ...state,
-                userLoaded: state.userLoaded + 1,
-                users : state.users.map(user => user.uid === action.uid?
-                    {...user,posts:action.posts}
-                    :user)
+                feed : [...state.feed,...action.posts],
+                userFollowingLoaded: state.userFollowingLoaded + 1,
+                
             }
-
         case CLEAR_DATA:
             return {
                 users: [],
-                userLoaded: 0
+                userFollowingLoaded: 0
             }
-    
         default:
             return state
     }

@@ -2,33 +2,21 @@ import React,{useEffect, useState} from 'react'
 import { View, Text, Image, FlatList, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
-const Profile = (props) => {
-    
-    
+const Feed = (props) => {
     const [user, setUser] = useState(null)
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-       let posts = []
-    //    console.log(props.userLoaded)
-        if(props.userLoaded === props.following.length  && props.following.length !== 0){
+    //    onsole.log(props.userLoaded)
+        if(props.userFollowingLoaded === props.following.length  && props.following.length !== 0){
             
-
-            for(let i = 0 ; i< props.following.length; i++){
-                const user = props.users.find(el=>el.uid=== props.following[i])
-                
-                if(user != undefined){
-                    posts = [...posts , ...user.posts]
-                }
-            }
-            posts.sort(function(x,y){
+            props.feed.sort(function(x,y){
                 return x.creation - y.creation;
             })
             // console.log(posts)
-            setPosts(posts)
+            setPosts(props.feed)
         }
-    },[props.userLoaded])
-
+    },[props.userFollowingLoaded])
         return (
             <View style={styles.container}>
                 <View style={styles.galleryContainer} >
@@ -49,7 +37,6 @@ const Profile = (props) => {
                             >
                                 View Comments
                             </Text>
-
                             </View>
                         )}
                     /> 
@@ -78,10 +65,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (store) => ({
     currentUser : store.userState.currentUser,
     following: store.userState.following,
-    users : store.usersState.users,
-    userLoaded : store.usersState.userLoaded
-  })
+    feed: store.usersState.feed,
+    userFollowingLoaded : store.usersState.userFollowingLoaded
+})
 
 
-export default connect(mapStateToProps,null)(Profile)
+export default connect(mapStateToProps,null)(Feed)
 
