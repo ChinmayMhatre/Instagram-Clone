@@ -52,7 +52,6 @@ const Save = (props,{navigation}) => {
             props.navigation.popToTop()
         })
     }
-   
     return (
         <View style={{flex:1}}>
             <Image style={{flex:1}} source={{uri:props.route.params.image}}/>
